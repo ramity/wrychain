@@ -1,0 +1,21 @@
+services:
+
+  wrychain_nginx:
+    container_name: wrychain_nginx
+    build:
+      context: ./
+      dockerfile: docker/nginx/Dockerfile
+    image: wrychain_nginx
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+      - ./logs:/var/log/nginx
+    ports:
+      - 3001:443
+    networks:
+      - reproxy
+    restart: unless-stopped
+
+networks:
+  reproxy:
+    external: true
+    name: reproxy
