@@ -1,2 +1,13 @@
-logs/*
+# Data directory excludes
+data/redis/*
+data/mariadb/*
+
+# Logs directory excludes
+logs/nginx/*
+
+# Exclude specific file types
+.env
+*.conf
+
+# Override to preserve directory structure
 !.gitkeep
