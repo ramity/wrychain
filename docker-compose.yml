@@ -1,21 +1,89 @@
 services:
 
+  wrychain_mariadb:
+    build:
+      context: ./
+      dockerfile: ./docker/mariadb/Dockerfile
+    container_name: wrychain_mariadb
+    env_file:
+      - ./docker/mariadb/.env
+    image: wrychain_mariadb
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+    networks:
+      - wrychain
+
   wrychain_nginx:
     container_name: wrychain_nginx
     build:
       context: ./
       dockerfile: docker/nginx/Dockerfile
     image: wrychain_nginx
-    volumes:
-      - ./html:/usr/share/nginx/html:ro
-      - ./logs:/var/log/nginx
     ports:
-      - 3001:443
+      - 80:80
+      - 443:443
+    volumes:
+      - ./src/symfony:/var/www/symfony:ro
+      - ./logs/nginx:/var/log/nginx
     networks:
       - reproxy
+      - wrychain
     restart: unless-stopped
+
+  wrychain_node:
+    container_name: wrychain_node
+    build:
+      context: ./
+      dockerfile: ./docker/node/Dockerfile
+    image: wrychain_node
+    volumes:
+      - ./src/node:/entropy
+    env_file:
+      - ./docker/node/.env
+    networks:
+      - wrychain
+
+  wrychain_phpmyadmin:
+    container_name: wrychain_phpmyadmin
+    build:
+      context: ./
+      dockerfile: ./docker/phpmyadmin/Dockerfile
+    image: wrychain_phpmyadmin
+    ports:
+      - 8080:80
+    env_file:
+      - ./docker/phpmyadmin/.env
+    networks:
+      - wrychain
+
+  wrychain_redis:
+    build:
+      context: ./
+      dockerfile: ./docker/redis/Dockerfile
+    container_name: wrychain_redis
+    image: wrychain_redis
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - wrychain
+
+  wrychain_symfony:
+    build:
+      context: ./
+      dockerfile: ./docker/symfony/Dockerfile
+    container_name: wrychain_symfony
+    env_file:
+      - ./docker/symfony/.env
+    image: wrychain_symfony
+    volumes:
+      - ./src/symfony:/symfony
+      - ./logs/symfony:/root/.symfony5/log
+    networks:
+      - wrychain
 
 networks:
   reproxy:
     external: true
     name: reproxy
+  wrychain:
+    name: wrychain
