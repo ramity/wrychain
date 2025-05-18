@@ -1,0 +1,44 @@
+# https://symfony.com/doc/current/setup/web_server_configuration.html
+
+server {
+
+    listen 443 ssl;
+    server_name wrychain.com;
+    ssl_certificate /etc/nginx/ssl/wrychain.crt;
+    ssl_certificate_key /etc/nginx/ssl/wrychain.key;
+
+    root /var/www/symfony/public;
+    index index.php;
+
+    location / {
+        try_files $uri /index.php$is_args$args;
+    }
+
+    # Handle PHP files by passing to PHP-FPM container
+    location ~ ^/index\.php(/|$) {
+        include fastcgi_params;
+        fastcgi_pass wrychain_symfony:9000;  # Connect to the PHP container using the service name
+        # fastcgi_split_path_info ^(.+\.php)(/.*)$;
+
+        # Important: Set the correct parameters for PHP-FPM
+        fastcgi_param SCRIPT_FILENAME /symfony/public$fastcgi_script_name;
+
+        # Prevents URIs that include the front controller
+        internal;
+    }
+
+    # Return 404 for all other php files
+    location ~ \.php$ {
+        return 404;
+    }
+
+    # For Symfony's assets
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js)$ {
+        expires 1M;
+        access_log off;
+        add_header Cache-Control "public";
+    }
+
+    error_log /var/log/nginx/error.log debug;
+    access_log /var/log/nginx/access.log;
+}
