@@ -1,0 +1,17 @@
+{
+  "name": "wrychain-notification-backend",
+  "version": "0.0.1",
+  "description": "A standalone microservice for handling webpush notifications to PWA browser clients",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "github.com/ramity",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "web-push": "^3.6.7"
+  }
+}
