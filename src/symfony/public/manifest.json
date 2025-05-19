@@ -1,0 +1,33 @@
+{
+    "background_color": "#74b9ff",
+    "categories": ["social"],
+    "description": "Opensource communication platform",
+    "display": "fullscreen",
+    "icons": [
+        {
+        }
+    ],
+    "id": "/",
+    "launch_handler": {
+        "client_mode": "focus-existing"
+    },
+    "name": "Wrychain",
+    "orientation": "any",
+    "prefer_related_applications": false,
+    "scope": "/",
+    "short_name": "Wrychain",
+    "shortcuts": [
+        {
+            "name": "Example shortcut",
+            "short_name": "Example",
+            "description": "This is an example shortcut",
+            "url": "/",
+            "icons": [
+                {
+                }
+            ]
+        }
+    ],
+    "start_url": "/",
+    "theme_color": "#74b9ff"
+}
