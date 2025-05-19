@@ -5,9 +5,8 @@ data/mariadb/*
 # Logs directory excludes
 logs/nginx/*
 
-# Exclude specific file types
-.env
-*.conf
+# Exclude local files
+*.local
 
 # Override to preserve directory structure
 !.gitkeep

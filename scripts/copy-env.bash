@@ -1,8 +1,8 @@
 #!/bin/bash
 
-cp -u docker/mariadb/.env.dist docker/mariadb/.env
-cp -u docker/nginx/wrychain.conf.dist docker/nginx/wrychain.conf
-cp -u docker/node/.env.dist docker/node/.env
-cp -u docker/phpmyadmin/.env.dist docker/phpmyadmin/.env
-cp -u docker/redis/redis-full.conf.dist docker/redis/redis-full.conf
-cp -u docker/symfony/.env.dist docker/symfony/.env
+cp -u docker/mariadb/.env docker/mariadb/.env.local
+cp -u docker/nginx/wrychain.conf docker/nginx/wrychain.conf.local
+cp -u docker/node/.env docker/node/.env.local
+cp -u docker/phpmyadmin/.env docker/phpmyadmin/.env.local
+cp -u docker/redis/redis-full.conf docker/redis/redis-full.conf.local
+cp -u docker/symfony/.env docker/symfony/.env.local
