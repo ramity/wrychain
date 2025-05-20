@@ -32,7 +32,7 @@
         navigator.serviceWorker.ready.then(registration => {
             return registration.pushManager.subscribe({
                 userVisibleOnly: true,
-                applicationServerKey: 'BG_2pYgz6vFUTXGxyQjoEKYNg6vmU-JBgmWs8xkuEpNcz_b7eKATOZokLxifu0qlQm_Qlx3xf-i1hyZIEEVF59E'
+                applicationServerKey: 'BGXnK870KdUVX6wPCUD9rFVBwizcsJ3349xziM9QC5wOYHSWHM87PR20gXpEkDaf9YFvFyLfxAtfeSAKDMbCke8'
             });
         }).then(subscription => {
             console.log('Subscribed:', JSON.stringify(subscription));
@@ -54,13 +54,13 @@
         });
         </script>
 
-        {% block javascripts %}
+        {% block javascript %}
         {% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
 
-        <button id="installPWA" style="display:none;">Install App</button>
+        <button id="installPWA" style="display: none;">Install App</button>
 
         <script>
         // Enable Add to Home Screen (A2HS)
