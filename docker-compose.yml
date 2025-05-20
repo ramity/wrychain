@@ -6,7 +6,7 @@ services:
       dockerfile: ./docker/mariadb/Dockerfile
     container_name: wrychain_mariadb
     env_file:
-      - ./docker/mariadb/.env
+      - ./docker/mariadb/.env.local
     image: wrychain_mariadb
     volumes:
       - ./data/mariadb:/var/lib/mysql
@@ -37,9 +37,9 @@ services:
       dockerfile: ./docker/node/Dockerfile
     image: wrychain_node
     volumes:
-      - ./src/node:/entropy
+      - ./src/node:/wrychain
     env_file:
-      - ./docker/node/.env
+      - ./docker/node/.env.local
     networks:
       - wrychain
 
@@ -52,7 +52,7 @@ services:
     ports:
       - 8080:80
     env_file:
-      - ./docker/phpmyadmin/.env
+      - ./docker/phpmyadmin/.env.local
     networks:
       - wrychain
 
@@ -73,7 +73,7 @@ services:
       dockerfile: ./docker/symfony/Dockerfile
     container_name: wrychain_symfony
     env_file:
-      - ./docker/symfony/.env
+      - ./docker/symfony/.env.local
     image: wrychain_symfony
     volumes:
       - ./src/symfony:/symfony
