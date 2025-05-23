@@ -46,4 +46,4 @@ WORKDIR /symfony
 # For Dev use only
 # ENTRYPOINT symfony server:start --listen-ip=0.0.0.0
 
-CMD [ "composer update && php-fpm" ]
+CMD composer update && php-fpm
