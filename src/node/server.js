@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 app.post('/subscribe', (req, res) => {
     const subscription = req.body;
 
-    if (subscriptions.includes(subscription))
+    if (!subscriptions.includes(subscription))
     {
         subscriptions.push(subscription);
     }
