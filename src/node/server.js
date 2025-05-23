@@ -48,8 +48,12 @@ app.post('/send-notification', (req, res) => {
     );
 
     Promise.all(sendPromises)
-        .then(() => res.sendStatus(200))
-        .catch(err => res.status(500).json({ error: err }));
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500).json(err);
+        });
+
+    res.sendStatus(200)
 });
 
 app.listen(3000, '0.0.0.0', () => console.log('Server started on port 3000'));
