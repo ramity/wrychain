@@ -2,7 +2,7 @@
     "background_color": "#74b9ff",
     "categories": ["social"],
     "description": "Open source communication platform",
-    "display": "fullscreen",
+    "display": "standalone",
     "icons": [
         {
             "src": "icon.png",
