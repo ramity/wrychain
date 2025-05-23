@@ -4,6 +4,7 @@ const fs = require('fs');
 const webpush = require('web-push');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { subscribe } = require('diagnostics_channel');
 
 // const key = fs.readFileSync(__dirname + '/rootCA-key.pem');
 // const cert = fs.readFileSync(__dirname + '/rootCA.pem');
@@ -31,7 +32,12 @@ app.get('/', (req, res) => {
 //  - clients post to this endpoint to be added to the subscription list
 app.post('/subscribe', (req, res) => {
     const subscription = req.body;
-    subscriptions.push(subscription);
+
+    if (subscriptions.includes(subscription))
+    {
+        subscriptions.push(subscription);
+    }
+
     res.status(201).json({});
 });
 
