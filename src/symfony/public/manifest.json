@@ -1,10 +1,11 @@
 {
     "background_color": "#74b9ff",
     "categories": ["social"],
-    "description": "Opensource communication platform",
+    "description": "Open source communication platform",
     "display": "fullscreen",
     "icons": [
         {
+            "src": "wrychain.png"
         }
     ],
     "id": "/",

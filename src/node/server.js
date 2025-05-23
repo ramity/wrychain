@@ -38,7 +38,8 @@ app.post('/subscribe', (req, res) => {
     );
 
     // Only add if it doesn't already exist
-    if (!exists) {
+    if (!exists)
+    {
         subscriptions.push(subscription);
     }
 
