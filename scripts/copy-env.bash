@@ -8,6 +8,6 @@ cp -u docker/phpmyadmin/.env docker/phpmyadmin/.env.local
 cp -u docker/redis/redis-full.conf docker/redis/redis-full.conf.local
 cp -u docker/symfony/.env docker/symfony/.env.local
 
-cp -u src/symfony/.env src/symfony.env.local
+cp -u src/symfony/.env src/symfony/.env.local
 
 nano docker/node/.env.local
