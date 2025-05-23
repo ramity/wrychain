@@ -4,7 +4,6 @@ const fs = require('fs');
 const webpush = require('web-push');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { subscribe } = require('diagnostics_channel');
 
 // const key = fs.readFileSync(__dirname + '/rootCA-key.pem');
 // const cert = fs.readFileSync(__dirname + '/rootCA.pem');
@@ -33,8 +32,13 @@ app.get('/', (req, res) => {
 app.post('/subscribe', (req, res) => {
     const subscription = req.body;
 
-    if (!subscriptions.includes(subscription))
-    {
+    // Check if the subscription already exists
+    const exists = subscriptions.find(sub => 
+        sub.endpoint === subscription.endpoint
+    );
+
+    // Only add if it doesn't already exist
+    if (!exists) {
         subscriptions.push(subscription);
     }
 
