@@ -19,9 +19,9 @@ services:
       context: ./
       dockerfile: docker/nginx/Dockerfile
     image: wrychain_nginx
-    ports:
-      - 80:80
-      - 443:443
+    # ports:
+    #   - 80:80
+    #   - 443:443
     volumes:
       - ./src/symfony:/var/www/symfony:ro
       - ./logs/nginx:/var/log/nginx
@@ -43,29 +43,29 @@ services:
     networks:
       - wrychain
 
-  wrychain_phpmyadmin:
-    container_name: wrychain_phpmyadmin
-    build:
-      context: ./
-      dockerfile: ./docker/phpmyadmin/Dockerfile
-    image: wrychain_phpmyadmin
-    ports:
-      - 8080:80
-    env_file:
-      - ./docker/phpmyadmin/.env.local
-    networks:
-      - wrychain
+  # wrychain_phpmyadmin:
+  #   container_name: wrychain_phpmyadmin
+  #   build:
+  #     context: ./
+  #     dockerfile: ./docker/phpmyadmin/Dockerfile
+  #   image: wrychain_phpmyadmin
+  #   ports:
+  #     - 8080:80
+  #   env_file:
+  #     - ./docker/phpmyadmin/.env.local
+  #   networks:
+  #     - wrychain
 
-  wrychain_redis:
-    build:
-      context: ./
-      dockerfile: ./docker/redis/Dockerfile
-    container_name: wrychain_redis
-    image: wrychain_redis
-    volumes:
-      - ./data/redis:/data
-    networks:
-      - wrychain
+  # wrychain_redis:
+  #   build:
+  #     context: ./
+  #     dockerfile: ./docker/redis/Dockerfile
+  #   container_name: wrychain_redis
+  #   image: wrychain_redis
+  #   volumes:
+  #     - ./data/redis:/data
+  #   networks:
+  #     - wrychain
 
   wrychain_symfony:
     build:
