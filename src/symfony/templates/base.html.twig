@@ -3,73 +3,26 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="manifest" href="/manifest.json">
+        <link rel="manifest" href="manifest.json">
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
         {% endblock %}
-
-        <script>
-        // Register serviceWorker
-        if ('serviceWorker' in navigator && 'PushManager' in window) {
-            navigator.serviceWorker.register('/service-worker.js')
-                .then((registration) => {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                })
-                .catch((error) => {
-                    console.error('Service Worker registration failed:', error);
-                });
-        }
-
-        // Ask user for notification permission after first click event
-        document.addEventListener('click', () => {
-            Notification.requestPermission().then(function (status) {
-                if (status === 'granted') {
-                    console.log('User granted permission for notifications');
-                }
-            });
-        });
-
-        // Subscribing to notifications
-        navigator.serviceWorker.ready.then(registration => {
-            return registration.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: 'BGXnK870KdUVX6wPCUD9rFVBwizcsJ3349xziM9QC5wOYHSWHM87PR20gXpEkDaf9YFvFyLfxAtfeSAKDMbCke8'
-            });
-        }).then(subscription => {
-            console.log('Subscribed:', JSON.stringify(subscription));
-
-            // Send subscription to your backend server
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/subscribe", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        console.log("Response:", xhr.responseText);
-                    } else {
-                        console.error("Error:", xhr.status, xhr.statusText);
-                    }
-                }
-            };
-            xhr.send(JSON.stringify(subscription));
-        });
-        </script>
-
-        {% block javascripts %}
-        {% endblock %}
+        <script src="service-butler.js"></script>
     </head>
     <body>
         {% block body %}{% endblock %}
 
+        <!--
         <button id="installPWA" style="display:none;">Install App</button>
 
         <script>
+        // Until I decide to make a banner bar, I'm going to stick with omnibox
+
         // Enable Add to Home Screen (A2HS)
         // let deferredPrompt;
         // window.addEventListener('beforeinstallprompt', (event) => {
         //     event.preventDefault();
         //     deferredPrompt = event;
-
         //     document.getElementById('installPWA').style.display = 'block';
         // });
 
@@ -85,5 +38,6 @@
         //     }
         // });
         </script>
+        -->
     </body>
 </html>
