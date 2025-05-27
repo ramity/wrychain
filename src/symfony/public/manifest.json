@@ -1,6 +1,17 @@
-{
+ {
+    "author": "ramity@github",
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": true,
+        "preferred_environment": "service_worker",
+        "type": "classic"
+    },
     "background_color": "#74b9ff",
-    "categories": ["social"],
+    "categories": [
+        "social"
+    ],
     "description": "Open source communication platform",
     "display": "standalone",
     "icons": [
@@ -18,6 +29,28 @@
     "name": "Wrychain",
     "orientation": "any",
     "prefer_related_applications": false,
+    "protocol_handlers": [
+        {
+            "protocol": "wrychain",
+            "url": "/s/%s"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "tablet-preview.png",
+            "sizes": "768x436",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "desktop preview label"
+        },
+        {
+            "src": "mobile-preview.png",
+            "sizes": "412x915",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "desktop preview label"
+        }
+    ],
     "scope": "/",
     "short_name": "Wrychain",
     "shortcuts": [
@@ -28,6 +61,10 @@
             "url": "/",
             "icons": [
                 {
+                    "src": "icon.png",
+                    "sizes": "144x144",
+                    "purpose": "any",
+                    "type": "image/png"
                 }
             ]
         }
