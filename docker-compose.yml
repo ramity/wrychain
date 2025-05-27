@@ -20,7 +20,6 @@ services:
       dockerfile: docker/nginx/Dockerfile
     image: wrychain_nginx
     # ports:
-    #   - 80:80
     #   - 443:443
     volumes:
       - ./src/symfony:/var/www/symfony:ro
