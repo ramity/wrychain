@@ -20,6 +20,35 @@ document.addEventListener('click', () => {
     });
 });
 
+// Register Periodic Background Sync
+navigator.serviceWorker.ready.then(async (swReg) => {
+
+    console.log('periodic log');
+
+    if ('serviceWorker' in navigator && 'periodicSync' in swReg) {
+        console.log('green light');
+    }
+
+    const status = await navigator.permissions.query({ name: 'periodic-background-sync' });
+
+    console.log(status);
+
+    switch (status.state) {
+        case 'granted':
+            console.log('Adding periodic background sync task.');
+            await swReg.periodicSync.register('check-notifications', { minInterval: 60 * 1000 });
+            break;
+
+        case 'prompt':
+            console.log('Prompt');
+            break;
+
+        case 'denied':
+            console.error('Periodic background sync permission denied.');
+            break;
+    }
+});
+
 // Subscribing to notifications
 navigator.serviceWorker.ready.then(registration => {
     return registration.pushManager.subscribe({
@@ -43,14 +72,4 @@ navigator.serviceWorker.ready.then(registration => {
         }
     };
     xhr.send(JSON.stringify(subscription));
-});
-
-// Register Periodic Background Sync
-navigator.serviceWorker.ready.then(async (swReg) => {
-    const status = await navigator.permissions.query({ name: 'periodic-background-sync' });
-    if (status.state === 'granted') {
-        await swReg.periodicSync.register('check-notifications', {
-            minInterval: 60 * 1000, // TODO verify: 15 minutes might actually be the minimum
-        });
-    }
 });
