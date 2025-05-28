@@ -31,7 +31,7 @@
     "prefer_related_applications": false,
     "protocol_handlers": [
         {
-            "protocol": "wrychain",
+            "protocol": "web+wrychain",
             "url": "/s/%s"
         }
     ],
