@@ -108,6 +108,13 @@ self.addEventListener("paymentrequest", (event) => {
 
 self.addEventListener("periodicsync", (event) => {
     if (DEBUG) console.info("service-worker::periodicsync", event);
+
+    if (event.tag === 'check-notifications') {
+
+        console.log('check notifications periodic sync was called');
+
+        // event.waitUntil(function());
+    }
 });
 
 self.addEventListener("push", event => {
