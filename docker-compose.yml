@@ -19,13 +19,14 @@ services:
       context: ./
       dockerfile: docker/nginx/Dockerfile
     image: wrychain_nginx
-    # ports:
-    #   - 443:443
+    ports:
+      - 443:443
     volumes:
       - ./src/symfony:/var/www/symfony:ro
       - ./logs/nginx:/var/log/nginx
     networks:
-      - reproxy
+      # Production reverse proxy
+      # - reproxy
       - wrychain
     restart: unless-stopped
 
@@ -42,6 +43,7 @@ services:
     networks:
       - wrychain
 
+  # Development database viewer
   # wrychain_phpmyadmin:
   #   container_name: wrychain_phpmyadmin
   #   build:
@@ -55,6 +57,7 @@ services:
   #   networks:
   #     - wrychain
 
+  # TODO: Redis for in-memory stuff
   # wrychain_redis:
   #   build:
   #     context: ./
@@ -76,13 +79,16 @@ services:
     image: wrychain_symfony
     volumes:
       - ./src/symfony:/symfony
-      - ./logs/symfony:/root/.symfony5/log
     networks:
       - wrychain
 
 networks:
-  reproxy:
-    external: true
-    name: reproxy
+
+  # Production reverse proxy
+  # reproxy:
+  #   external: true
+  #   name: reproxy
+
   wrychain:
     name: wrychain
+    driver: bridge

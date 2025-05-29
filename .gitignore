@@ -1,5 +1,6 @@
 # Data directory excludes
 data/redis/*
+data/nginx/*
 data/mariadb/*
 
 # Logs directory excludes
