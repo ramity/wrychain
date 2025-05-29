@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\WebPushSubscription;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,12 +46,15 @@ final class WebPushController extends AbstractController
     }
 
     #[Route('/send-notification', name: 'notification')]
-    public function send_notification(): Response
-    {
+    public function send_notification(): Response {
         $notification_backend_subscribe_endpoint = 'http://wrychain_node:3000/send-notification';
 
         // Forward request to notification backend
-        $response = $this->client->request('POST', $notification_backend_subscribe_endpoint);
+        try {
+            $response = $this->client->request('POST', $notification_backend_subscribe_endpoint);
+        } catch (TransportException $error) {
+            $response = '{"error":"'.$error->getMessage().'"}';
+        }
 
         // Relay back the response
         return $this->json($response);
