@@ -25,6 +25,22 @@ RUN docker-php-ext-install intl
 RUN docker-php-ext-configure opcache
 RUN docker-php-ext-install opcache
 
+# Add OPcache config
+RUN echo "[opcache]\n\
+opcache.enable=1\n\
+opcache.enable_cli=1\n\
+opcache.memory_consumption=128\n\
+opcache.interned_strings_buffer=8\n\
+opcache.max_accelerated_files=10000\n\
+opcache.revalidate_freq=2\n\
+opcache.fast_shutdown=1\n\
+opcache.validate_timestamps=1\n\
+zend_extension=opcache.so" > /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+
+# Add APCu
+RUN pecl install apcu
+RUN docker-php-ext-enable apcu
+
 # Zip for programmatic compression and archive management
 RUN docker-php-ext-install zip
 
