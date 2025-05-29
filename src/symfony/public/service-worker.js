@@ -39,15 +39,11 @@ self.addEventListener("cookiechange", (event) => {
 self.addEventListener("fetch", (event) => {
     if (DEBUG) console.info("service-worker::fetch", event);
 
-    // if (event.request.url.contains("/_wdt/")) {
-
-    // }
-
-    event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
-        })
-    );
+    event.respondWith(caches.match(event.request).then((response) => {
+        return response || fetch(event.request);
+    }).catch((error) => {
+        console.error("service-worker::fetch error:", error);
+    }));
 });
 
 self.addEventListener("install", (event) => {
@@ -100,7 +96,7 @@ self.addEventListener("notificationclick", (event) => {
             return clients.openWindow("https://localhost/");
         }
     }).catch((error) => {
-        console.log("service-worker::notificationclick error", error);
+        console.error("service-worker::notificationclick error", error);
     }));
 });
 

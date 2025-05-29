@@ -48,7 +48,7 @@ navigator.serviceWorker.ready.then(async (swReg) => {
                 await swReg.periodicSync.register("check-notifications", { minInterval: 5 * 1000 });
                 console.log("service-butler::periodicSync check-notifications registered");
             } catch {
-                console.log("service-butler::periodicSync periodic Sync could not be registered");
+                console.error("service-butler::periodicSync periodic Sync could not be registered");
             }
             break;
 
@@ -87,5 +87,5 @@ navigator.serviceWorker.ready.then((registration) => {
     };
     xhr.send(JSON.stringify(subscription));
 }).catch((error) => {
-    console.log("service-butler::pushManager error:", error);
+    console.error("service-butler::pushManager error:", error);
 });
