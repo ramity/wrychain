@@ -53,7 +53,7 @@ final class WebPushController extends AbstractController
         try {
             $response = $this->client->request('POST', $notification_backend_subscribe_endpoint);
         } catch (TransportException $error) {
-            $response = '{"error":"'.$error->getMessage().'"}';
+            $response = $error->getMessage();
         }
 
         // Relay back the response

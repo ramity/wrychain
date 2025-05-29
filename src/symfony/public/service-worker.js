@@ -4,35 +4,35 @@
 
 const DEBUG = true;
 
-addEventListener("activate", (event) => {
+self.addEventListener("activate", (event) => {
     if (DEBUG) console.info("service-worker::activate", event);
 });
 
-addEventListener("backgroundfetchabort", (event) => {
+self.addEventListener("backgroundfetchabort", (event) => {
     if (DEBUG) console.info("service-worker::backgroundfetchabort", event);
 });
 
-addEventListener("backgroundfetchclick", (event) => {
+self.addEventListener("backgroundfetchclick", (event) => {
     if (DEBUG) console.info("service-worker::backgroundfetchclick", event);
 });
 
-addEventListener("backgroundfetchfail", (event) => {
+self.addEventListener("backgroundfetchfail", (event) => {
     if (DEBUG) console.info("service-worker::backgroundfetchfail", event);
 });
 
-addEventListener("backgroundfetchsuccess", (event) => {
+self.addEventListener("backgroundfetchsuccess", (event) => {
     if (DEBUG) console.info("service-worker::backgroundfetchsuccess", event);
 });
 
-addEventListener("canmakepayment", (event) => {
+self.addEventListener("canmakepayment", (event) => {
     if (DEBUG) console.info("service-worker::canmakepayment", event);
 });
 
-addEventListener("contentdelete", (event) => {
+self.addEventListener("contentdelete", (event) => {
     if (DEBUG) console.info("service-worker::contentdelete", event);
 });
 
-addEventListener("cookiechange", (event) => {
+self.addEventListener("cookiechange", (event) => {
     if (DEBUG) console.info("service-worker::cookiechange", event);
 });
 
@@ -80,21 +80,27 @@ self.addEventListener("messageerror", (event) => {
 });
 
 self.addEventListener("notificationclick", (event) => {
-  console.log("On notification click: ", event.notification.tag);
-  event.notification.close();
+    if (DEBUG) console.info("service-worker::notificationclick", event);
+    event.notification.close();
 
-  // This looks to see if the current is already open and focuses if it is
-  event.waitUntil(
-    clients.matchAll({type: "window"}).then((clientList) => {
+    // This looks to see if the current is already open and focuses if it is
+    event.waitUntil(clients.matchAll({type: "window"}).then((clientList) => {
+
+        // Search for open client
         for (const client of clientList) {
-            if (client.url.contains("https://localhost") && "focus" in client) {
+            if (client.url.includes("https://localhost") && "focus" in client) {
+                console.log("service-worker::notificationclick focus on client window");
                 return client.focus();
             }
         }
 
+        // Empty or no match case
         if (clients.openWindow) {
-            return clients.openWindow("/");
+            console.log("service-worker::notificationclick creating new window");
+            return clients.openWindow("https://localhost/");
         }
+    }).catch((error) => {
+        console.log("service-worker::notificationclick error", error);
     }));
 });
 
@@ -109,9 +115,9 @@ self.addEventListener("paymentrequest", (event) => {
 self.addEventListener("periodicsync", (event) => {
     if (DEBUG) console.info("service-worker::periodicsync", event);
 
-    if (event.tag === 'check-notifications') {
+    if (event.tag === "check-notifications") {
 
-        console.log('check notifications periodic sync was called');
+        console.log("check notifications periodic sync was called");
 
         // event.waitUntil(function());
     }
